@@ -1,0 +1,82 @@
+// A program to find the MINIMIUN AND MAXIMUIM ELEMENT.//
+
+#include <iostream>
+using namespace std;
+
+class array
+{
+    int a[50],min,max,n;
+
+    public:
+        array(int);
+        void read();
+        void display();
+        void call_fun();
+        void minmax(int,int,int,int);
+};
+
+array::array(int i)
+{
+    n=i;
+    min=a[0];
+    max=a[0];
+}
+void array::read()
+{
+    int i;
+    for(i=0;i<n;i++)
+        cin>>a[i];
+}
+void array::display()
+{
+    cout<<"Maximum: "<<max<<endl;
+    cout<<"Minimum: "<<min<<endl;
+}
+void array::call_fun()
+{
+    minmax(0,n-1,min,max);
+}
+void array::minmax(int start,int end,int mn,int mx)
+{
+    int mn1,mn2,mx1,mx2;
+    if(start==end)
+    {
+        mx=a[start];
+        mn=a[start];
+        return;
+    }
+    if(end-start==1)
+    {
+        if(a[start]>a[end])
+        {
+            mn=a[end];
+            mx=a[start];
+            return;
+        }
+        else
+        {
+            mx=a[start];
+            mn=a[end];
+            return;
+        }
+    }
+    else
+    {
+        int m=(start+end)/2;
+        minmax(start,m,mn1,mx1);
+        minmax(m+1,end,mn1,mx2);
+    }
+
+    (mn1>mn2)?min=mn2:min=mn1;
+    (mx1>mx2)?max=mx1:max=mx2;
+}
+int main()
+{
+    int n;
+    cout<<"Enter the number of elements"<<endl;
+    cin>>n;
+    array A(n);
+    A.read();
+    A.call_fun();
+    A.display();
+}
